@@ -1,0 +1,17 @@
+<div id="user-open" title="Sine in" data-dialog-width="500" >
+    <form id="user-login-form" action="">
+        <dl>
+          <dt>UserID</dt>
+          <dd><input name="userId" type="text" data-quark-event="enter-user.login:form"></dd>
+          <dt>Password</dt>
+          <dd><input name="password" type="password" data-quark-event="enter-user.login:form" ></dd>
+        </dl>
+    </form>
+    <p>
+      <input type="button" data-quark-event="click-user.login:form" value="Sign in" >
+      <input type="button" data-quark-event="click-user.close" value="Cancel" >
+    </p>
+    <p>
+      <a href="#" data-quark-event="click-user.signup" >Sign Up</a>
+    </p>
+</div>
