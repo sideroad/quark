@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+#user-open dt {
+	float:left;
+	clear:left;
+    width : 90px;
+}
+#user-open dd {
+    float:left;
+    width : 150px;
+}
+
+.clearfix:after{
+    content: ""; 
+    display: block; 
+    clear: both;}

@@ -7,6 +7,12 @@ var particle = {
         "user",
         "message"
     ],
+    
+    lang : [
+        "en",
+        "ja"
+    ],
+    
     init : function(){
     }
 };
