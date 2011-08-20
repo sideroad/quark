@@ -1,5 +1,8 @@
 user.id=User ID
+user.id.validate=Use 4 to 32 characters and start with a letter. You may use letters, numbers, underscores, and one dot (.).
 user.pw=Password
+user.pw.validate=Use 6 to 32 characters.
 signin=Sign In
 signup=Sign Up
 cancel=Cancel
+is.required= is required.

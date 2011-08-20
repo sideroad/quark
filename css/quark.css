@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+.invalid-message{
+	display:none;
+}
+
+.invalid-message p {
+    font-size : 12px;
+}
+
+.invalid{
+	
+}

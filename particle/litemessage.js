@@ -4,8 +4,8 @@ var particle = {
         
     // quark list    
     quark : [
-        "user",
-        "message"
+        "auth",
+        "user"
     ],
     
     lang : [
@@ -13,8 +13,9 @@ var particle = {
         "ja"
     ],
     
-    init : function(){
-    }
+    init : [
+        "auth.open"
+    ]
 };
 
 

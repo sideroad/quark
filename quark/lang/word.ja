@@ -1,5 +1,7 @@
 user.id=ユーザID
+user.id.validate=４〜３２文字の半角英数字、アンダースコア、ドットを入力してください
 user.pw=パスワード
+user.pw.validate=６〜３２文字の半角文字を入力してください
 signin=ログイン
-signup=ユーザ登録
+signup=ユーザ登録する
 cancel=キャンセル

@@ -1,15 +1,39 @@
 @CHARSET "UTF-8";
-#user-open dt {
-	float:left;
-	clear:left;
-    width : 90px;
+
+
+p{
+    font-size: 14px;
+    margin : 0px;
 }
-#user-open dd {
-    float:left;
-    width : 150px;
+
+p.right {
+	text-align:right;
 }
 
 .clearfix:after{
     content: ""; 
     display: block; 
-    clear: both;}
+    clear: both;
+}
+
+#auth-open input {
+    width : 250px;
+}
+#auth-open input[type=button] {
+    width : 150px;
+}
+#auth-open dt {
+	float:left;
+	clear:left;
+    width : 90px;
+    margin : 5px;
+}
+#auth-open dd {
+    float:left;
+    width : auto;
+    margin : 5px;
+}
+
+#auth-open .invalid-message {
+    width : 255px;
+}
