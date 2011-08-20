@@ -2,20 +2,30 @@ quark.user = {
     display : {
         execute: function(){
             var data = qc.data( "user" );
-            data.userInfo = data.userInfo.replace(/\n/g,"<br/>");
+            data.info = data.info.replace(/\n/g,"<br/>");
             return data;
         },
         render : true,
         rendered : function(){
-            return "user.openBox";
+            return "user.form";
         }
     },
     
-    openBox : {
+    form : {
         execute: function(){},
         render : true,
-        button : true
-        
+        button : true,
+        validate : {
+            userSearch : {
+                require : true
+            }
+        }
+    },
+    
+    search : {
+        execute : function(){},
+        callback : function(){},
+        render : true
     }
     
 };

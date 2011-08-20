@@ -1,7 +1,7 @@
 <div id="user-display">
-	<div id="userImage" ><img src="img/${userId}.png" alt="User Image" /></div>
+	<div id="userImage" ><img src="img/users/${img}.png" alt="User Image" /></div>
 	<div id="userProfile">
-        <p>${userName}</p>
-        <p>${userInfo}</p>
+        <p>${name}</p>
+        <p>${info}</p>
     </div>
 </div>

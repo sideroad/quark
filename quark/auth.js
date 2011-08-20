@@ -40,9 +40,10 @@ quark.auth = {
             var user = qc.data("user");
             if( !user ) {
                 qc.data("user",{
-                    userId : "guest",
-                    userName : "Guest",
-                    userInfo : "Please login."
+                    id : "guest",
+                    name : "Guest",
+                    info : "Please login.",
+                    img : "0"
                 });
             }
             return "user.display";

@@ -5,7 +5,8 @@ var particle = {
     // quark list    
     quark : [
         "auth",
-        "user"
+        "user",
+        "message"
     ],
     
     lang : [
