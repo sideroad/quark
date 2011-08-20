@@ -4,6 +4,7 @@ quark.auth = {
         execute : function(){},
         render : true,
         rendered : function(){},
+        button : true,
         dialog : {
             singleton : true,
             focus : "userId",
@@ -27,16 +28,25 @@ quark.auth = {
                 return res; 
         },
         rendered : function( res ){
-            if( res.status == "success" ) {
-                return "user.display"; // Call success chain
-            } else {
-                return "auth.close"; // Call error chain
-            }
+            qc.data( "user", res );
+            return "auth.close"; // Call error chain
+            
         }
     },
     
     close : {
-        execute: function(){}
+        execute: function(){},
+        rendered : function(){
+            var user = qc.data("user");
+            if( !user ) {
+                qc.data("user",{
+                    userId : "guest",
+                    userName : "Guest",
+                    userInfo : "Please login."
+                });
+            }
+            return "user.display";
+        }
     }
     
     /**
