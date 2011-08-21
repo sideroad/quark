@@ -1,4 +1,4 @@
-<div id="auth-open" title="$w{signin}" data-dialog-width="500" >
+<div id="auth-open" title="$w{signin}" >
     <form id="auth-signin-form" action="">
         <dl class="clearfix" >
           <dt>$w{user.id}</dt>

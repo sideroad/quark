@@ -8,6 +8,7 @@ quark.auth = {
         dialog : {
             singleton : true,
             focus : "userId",
+            width : 500,
             close : "auth.close"
         },
         validate : {

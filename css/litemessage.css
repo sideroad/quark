@@ -38,18 +38,18 @@ p.right {
     width : 255px;
 }
 
-#message-open dt {
+.message-open dt {
     float:left;
     clear:left;
     width : 90px;
     margin : 5px;
 }
-#message-open dd {
+.message-open dd {
     float:left;
     width : auto;
     margin : 5px;
 }
-#message-open textarea {
+.message-open textarea {
 	width : 340px;
 	height : 75px;
 }

@@ -12,4 +12,5 @@ is.required= is required.
 message=Message
 message.validate=Message is required.
 message.send=Send Message
+message.have.sent=Message have sent.
 send=Send
