@@ -25,12 +25,10 @@ quark.auth = {
     
     signin : {
         execute : function(){},
-        callback : function( res, req ){
-                return res; 
-        },
-        rendered : function( res ){
-            qc.data( "user", res );
-            return "auth.close"; // Call error chain
+        callback : function(){},
+        rendered : function( arg ){
+            qc.data( "user", arg.res );
+            return { call : "auth.close" }; // Call error chain
             
         }
     },
@@ -47,28 +45,38 @@ quark.auth = {
                     img : "0"
                 });
             }
-            return "user.display";
+            return { call : "user.display", data : qc.data( "user" ) };
         }
     }
     
     /**
      * Execute function ( Required )
      *   Define the function which called first step
+     *  @param {Object} data
+     *  @param {jQueryElement} target
      */
     
     /**
      * Callback function ( Omittable )
      *   Define the callback function which called after processed ajax.
+     *  @param {Object} req
+     *  @param {Object} data
+     *  @param {jQueryElement} target
      */
     
     /**
      *  Render setting ( Omittable )
      *   Define the render setting
+     *  @param {Boolean} is render?
      */
     
     /**
      * Rendered function ( Omittable )
      *   Define the rendered function which called after processed render
+     *  @param {Object} res
+     *  @param {Object} req
+     *  @param {Object} data
+     *  @param {jQueryElement} target
      */
     
     /**
@@ -79,10 +87,10 @@ quark.auth = {
      * Dialog setting ( Omittable ) - QuarkUtil
      *   Define the dialog setting which using render element.
      *   
-     *  @param singleton : Boolean ( default is false )
+     *  @param {Boolean} singleton ( default is false )
      *                use modal singleton dialog.
      *                
-     *  @param focus : String
+     *  @param {String} focus
      *                ID of focus element after the dialog opened.
      * 
      */

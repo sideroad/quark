@@ -1,13 +1,13 @@
 quark.user = {
     display : {
-        execute: function(){
-            var data = qc.data( "user" );
+        execute: function( arg ){
+            var data = arg.data;
             data.info = data.info.replace(/\n/g,"<br/>");
             return data;
         },
         render : true,
         rendered : function(){
-            return "user.form";
+            return { call : "user.form" };
         }
     },
     

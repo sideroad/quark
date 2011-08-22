@@ -16,19 +16,19 @@ quark.message = {
     send : {
         execute: function(){},
         callback : function(){},
-        rendered : function( data, root ){
-            if( data.status == "success" ) {
-                return "message.complete";
+        rendered : function( arg ){
+            if( arg.res.status == "success" ) {
+                return { call : "message.complete", data : { dialog : arg.target } };
             } else {
-                return "message.close";
+                return { call : "message.close",  elem : arg.target  };
             }
             
         }
     },
     complete : {
-        execute : function(){},
-        rendered : function(){
-            return "message.close";
+        execute : function(){ },
+        rendered : function( arg ){
+            return { call : "message.close", elem : arg.data.dialog };
         },
         render : true,
         floatingMessage : {

@@ -3,5 +3,6 @@
 	<div id="userProfile">
         <p>${name}</p>
         <p>${info}</p>
+        <p><input type="button" value="$w{signin}" data-quark-event="click-auth.open" ></p>
     </div>
 </div>
