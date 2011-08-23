@@ -1,6 +1,7 @@
 quark.mock = {
-    "auth.signin" : function( req ){
-        var res = { 
+    "auth.signin" : function( setting ){
+
+        this.responseText =  { 
                 status: "success", 
                 token: "1234567890123456789012345678901234567890", 
                 id : "test",
@@ -8,9 +9,8 @@ quark.mock = {
                 img : "0",
                 info : "Im test-man!\ntest! test! test!"
             };
-        return res;
     },
-    "user.search" : function( req ){
+    "user.search" : function( setting ){
         var users = [
                 "Vice President",
                 "George Washington",
@@ -33,7 +33,7 @@ quark.mock = {
              ],
              length = users.length,
              i,
-             name = req.userSearch.toLowerCase(),
+             name = setting.data.userSearch.toLowerCase(),
              matches = [];
         
         for( i = 0; i < length; i++ ){
@@ -42,13 +42,12 @@ quark.mock = {
             }
         }
         
-        var res = {
-                status : "success",
-                users : matches
-            };
-        return res;
+        this.responseText = {
+            status : "success",
+            users : matches
+        };
     },
-    "message.send" : function( res ){
-        return {status : "success"};
+    "message.send" : function( setting ){
+        this.responseText = { status : "success" };
     }
 };
