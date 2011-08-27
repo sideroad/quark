@@ -28,6 +28,6 @@
       <input type="button" data-quark-event="click-auth.close" value="$w{cancel}" >
     </p>
     <p class="right">
-      <a href="#" data-quark-event="click-auth.signup" >$w{signup}</a>
+      <a href="#" data-quark-event="click-auth.signupOpen" >$w{signup}</a>
     </p>
 </div>

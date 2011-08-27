@@ -1,16 +1,5 @@
-quark.mock = {
-    "auth.signin" : function( setting ){
-
-        this.responseText =  { 
-                status: "success", 
-                token: "1234567890123456789012345678901234567890", 
-                id : "test",
-                name : "TestMan",
-                img : "0",
-                info : "Im test-man!\ntest! test! test!"
-            };
-    },
-    "user.search" : function( setting ){
+quark.mock.user = {
+    search : function( setting ){
         var users = [
                 "Vice President",
                 "George Washington",
@@ -46,8 +35,5 @@ quark.mock = {
             status : "success",
             users : matches
         };
-    },
-    "message.send" : function( setting ){
-        this.responseText = { status : "success" };
     }
 };

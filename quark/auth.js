@@ -7,7 +7,6 @@ quark.auth = {
         button : true,
         dialog : {
             singleton : true,
-            focus : "userId",
             width : 500,
             close : "auth.close"
         },
@@ -28,7 +27,8 @@ quark.auth = {
         callback : function(){},
         rendered : function( arg ){
             qc.data( "user", arg.res );
-            return { call : "auth.close" }; // Call error chain
+            qc.call( "auth.close" );
+            qc.call( "message.take" );
             
         }
     },
@@ -45,9 +45,55 @@ quark.auth = {
                     img : "0"
                 });
             }
-            return { call : "user.display", data : qc.data( "user" ) };
+            qc.call( "user.display", qc.data( "user" ) );
         }
-    }
+    },
+    
+    signupOpen : {
+        execute : function(){
+            qc.call( "auth.close" );
+        },
+        render : true,
+        button : true,
+        dialog : {
+            singleton : true,
+            width : 500,
+            close : "auth.signupClose"
+        },
+        validate : {
+            userId : {
+                require : true,
+                pattern : /^[a-zA-Z0-9_\.]{4,32}$/
+            },
+            password : {
+                require : true,
+                pattern : /^.{6,32}$/
+            },
+            name : {
+                require : true
+            },
+            info : {
+                
+            }
+        },
+        file : {
+            "user-imageUpload" : true
+        }
+    },
+    
+    signup : {
+        execute : function(){},
+        callback : function(){
+            qc.data( "auth.signupClose" );
+        }
+    },
+
+    signupClose : {
+        execute: function(){},
+        rendered : function(){
+            qc.call( "auth.open" );
+        }
+    },
     
     /**
      * Execute function ( Required )

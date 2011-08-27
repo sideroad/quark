@@ -7,25 +7,33 @@ quark.user = {
         },
         render : true,
         rendered : function(){
-            return { call : "user.form" };
+            qc.call( "user.form" );
         }
     },
     
     form : {
         execute: function(){},
         render : true,
+        rendered : function(){
+            $("#userSearch").focus();
+        },
         button : true,
         validate : {
             userSearch : {
                 require : true
             }
-        }
+        },
     },
     
     search : {
         execute : function(){},
         callback : function(){},
         render : true
+    },
+    
+    imageUpload : {
+        execute : function(){},
+        rendered : function(){}
     }
     
 };

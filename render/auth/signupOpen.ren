@@ -1,0 +1,62 @@
+<div id="auth-signupOpen" title="$w{signup}" >
+    <form id="auth-signup-form" action="">
+        <dl class="clearfix" >
+          <dt>$w{user.id}</dt>
+          <dd>
+            <div>
+              <p><input id="userId" name="userId" type="text" data-quark-event="enter-auth.signup:form"></p>
+            </div>
+            <div id="userId-validate" >
+              <p>$w{user.id.validate}</p>
+            </div>
+          </dd>
+          
+          <dt>$w{user.pw}</dt>
+          <dd>
+            <div>
+          	  <p>
+          		<input id="password" name="password" type="password" data-quark-event="enter-auth.signup:form" >
+          	  </p>
+            </div>
+            <div id="password-validate" >
+              <p>$w{user.pw.validate}</p>
+            </div>
+          </dd>
+          
+          <dt>$w{user.name}</dt>
+          <dd>
+            <div>
+              <p>
+                <input id="name" name="name" type="text" data-quark-event="enter-auth.signup:form" >
+              </p>
+            </div>
+            <div id="name-validate" >
+              <p>$w{user.name.validate}</p>
+            </div>
+          </dd>
+          
+          <dt>$w{user.image}</dt>
+          <dd>
+            <div id="user-imageUpload" class="userImage" data-quark-event="click-user.imageUpload" >
+                <p>$w{user.image.upload}</p>
+            </div>
+          </dd>
+          
+          <dt>$w{user.info}</dt>
+          <dd>
+            <div>
+              <p>
+                <textarea id="info" name="info"  ></textarea>
+              </p>
+            </div>
+            <div id="info-validate" >
+              <p>$w{user.info.validate}</p>
+            </div>
+          </dd>
+        </dl>
+    </form>
+    <p>
+      <input type="button" data-quark-event="click-auth.signup:form" value="$w{signup}" >
+      <input type="button" data-quark-event="click-auth.signupClose" value="$w{cancel}" >
+    </p>
+</div>

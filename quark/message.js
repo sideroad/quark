@@ -18,9 +18,9 @@ quark.message = {
         callback : function(){},
         rendered : function( arg ){
             if( arg.res.status == "success" ) {
-                return { call : "message.complete", data : { dialog : arg.target } };
+                qc.call( "message.complete", { dialog : arg.target } );
             } else {
-                return { call : "message.close",  elem : arg.target  };
+                qc.call( "message.close", {}, arg.elem );
             }
             
         }
@@ -28,12 +28,35 @@ quark.message = {
     complete : {
         execute : function(){ },
         rendered : function( arg ){
-            return { call : "message.close", elem : arg.data.dialog };
+            qc.call( "message.close", {}, arg.data.dialog );
         },
         render : true,
         floatingMessage : {
             time : 2000,
             height: 25 
+        }
+    },
+    take : {
+        execute : function(){},
+        callback : function( arg ){
+            var list = arg.res.list || [],
+                length = list.length,
+                i;
+            
+            for( i = 0; i < length; i++ ){
+                (function( data, i ){
+                    setTimeout(function(){
+                        qc.call( "message.display", data );
+                    }, 250*i);
+                })(list[ i ], i);
+            }
+        }
+    },
+    display : {
+        execute : function( ){},
+        render : true,
+        floatingMessage : {
+            height: 75 
         }
     },
     close : {

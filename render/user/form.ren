@@ -6,7 +6,7 @@
             <input value="$w{search}" type="button" data-quark-event="click-user.search:form" />
         </p>
         <div id="userSearch-validate">
-        	<p>$w{user.name.validate}</p>
+        	<p>$w{user.search.validate}</p>
         </div>
     </form>
 </div>

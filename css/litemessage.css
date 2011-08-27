@@ -23,8 +23,8 @@ p.right {
     width : 150px;
 }
 #auth-open dt {
-	float:left;
-	clear:left;
+    float:left;
+    clear:left;
     width : 90px;
     margin : 5px;
 }
@@ -33,9 +33,41 @@ p.right {
     width : auto;
     margin : 5px;
 }
-
 #auth-open .invalid-message {
     width : 255px;
+}
+
+
+#auth-signupOpen input {
+    width : 250px;
+}
+#auth-signupOpen input[type=button] {
+    width : 150px;
+}
+#auth-signupOpen textarea {
+    width : 250px;
+    height : 100px;
+}
+#auth-signupOpen dt {
+    float:left;
+    clear:left;
+    width : 90px;
+    margin : 5px;
+}
+#auth-signupOpen dd {
+    float:left;
+    width : auto;
+    margin : 5px;
+}
+#auth-signupOpen .invalid-message {
+    width : 255px;
+}
+.userImage {
+	width: 50px;
+	height: 50px;
+	border: 1px solid white;
+	background-color: black;
+	text-align: center;
 }
 
 .message-open dt {
@@ -52,4 +84,19 @@ p.right {
 .message-open textarea {
 	width : 340px;
 	height : 75px;
+}
+
+.message-display>div>p{
+	text-align : center;
+}
+div.user{
+    width : 100px;
+    float : left;
+}
+div.user img{
+    width : 50px;
+}
+div.message{
+    width : auto;
+    float : left;
 }
