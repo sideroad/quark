@@ -1,19 +1,32 @@
 @CHARSET "UTF-8";
 
-
 p{
     font-size: 14px;
     margin : 0px;
 }
-
 p.right {
 	text-align:right;
 }
-
 .clearfix:after{
     content: ""; 
     display: block; 
     clear: both;
+}
+
+#container{
+	width : 750px;
+	margin : auto;
+}
+
+#left{
+	width : 300px;
+	margin : 5px;
+	float: left;
+}
+#right{
+	width : auto;
+    margin : 5px;
+    float: left;
 }
 
 #auth-open input {
@@ -62,12 +75,67 @@ p.right {
 #auth-signupOpen .invalid-message {
     width : 255px;
 }
-.userImage {
+
+#auth-updateOpen input {
+    width : 250px;
+}
+#user-updateOpen input[type=button] {
+    width : 150px;
+}
+#user-updateOpen textarea {
+    width : 250px;
+    height : 100px;
+}
+#user-updateOpen dt {
+    float:left;
+    clear:left;
+    width : 90px;
+    margin : 5px;
+}
+#user-updateOpen dd {
+    float:left;
+    width : auto;
+    margin : 5px;
+}
+#user-updateOpen .invalid-message {
+    width : 255px;
+}
+
+#user-load{
+    padding : 5px;
+}
+#user-load .image{
+    width : 100px;
+    float: left;
+}
+#user-load .profile{
+    width : 185px;
+    float: left;
+}
+#user-load .buttons{
+    width : auto;
+    text-align : right;
+    clear: both;
+}
+
+.useritem{
+    padding : 5px;
+}
+
+#user-form{
+    padding : 5px;
+}
+
+div.userImage {
 	width: 50px;
 	height: 50px;
 	border: 1px solid white;
 	background-color: black;
 	text-align: center;
+}
+.userImage {
+    width: 50px;
+    height: 50px;
 }
 
 .message-open dt {
@@ -86,6 +154,9 @@ p.right {
 	height : 75px;
 }
 
+.message-display{
+	height: 75px;
+}
 .message-display>div>p{
 	text-align : center;
 }

@@ -1,3 +1,0 @@
-<div id="message-complete" >
-    <p><span>$w{message.have.sent}</span></p>
-</div>

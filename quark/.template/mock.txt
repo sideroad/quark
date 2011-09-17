@@ -1,0 +1,4 @@
+    __action__ : function(){
+        var res = { status : "success"};
+        return res;
+    }

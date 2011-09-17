@@ -1,0 +1,59 @@
+<div id="user-updateOpen" title="$w{user.update}" >
+    <form id="user-update-form" action="">
+        <dl class="clearfix" >
+          <dt>$w{user.id}</dt>
+          <dd>
+            <div>
+              <p>${id}</p>
+            </div>
+          </dd>
+          
+          <dt>$w{user.pw}</dt>
+          <dd>
+            <div>
+          	  <p>
+          		<input id="password" name="password" type="password" data-quark-event="enter-user.update:form" >
+          	  </p>
+            </div>
+            <div id="password-validate" >
+              <p>$w{user.pw.validate}</p>
+            </div>
+          </dd>
+          
+          <dt>$w{user.name}</dt>
+          <dd>
+            <div>
+              <p>
+                <input id="name" name="name" type="text" data-quark-event="enter-user.update:form" value="${name}">
+              </p>
+            </div>
+            <div id="name-validate" >
+              <p>$w{user.name.validate}</p>
+            </div>
+          </dd>
+          
+          <dt>$w{user.image}</dt>
+          <dd>
+            <div id="user-upload" class="userImage" data-quark-event="file-user.upload" >
+                <p><img src="/img/users/${img}"></p>
+            </div>
+          </dd>
+          
+          <dt>$w{user.info}</dt>
+          <dd>
+            <div>
+              <p>
+                <textarea id="info" name="info"  >${info}</textarea>
+              </p>
+            </div>
+            <div id="info-validate" >
+              <p>$w{user.info.validate}</p>
+            </div>
+          </dd>
+        </dl>
+    </form>
+    <p>
+      <input type="button" data-quark-event="click-user.update:form" value="$w{update}" >
+      <input type="button" data-quark-event="click-user.updateClose" value="$w{cancel}" >
+    </p>
+</div>

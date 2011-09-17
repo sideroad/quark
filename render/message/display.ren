@@ -1,9 +1,0 @@
-<div id="message-display" >
-    <div class="user" >
-      <p><img src="img/users/${img}.png" alt="${name}" /></p>
-      <p>${name}</p>
-    </div>
-    <div class="message" >
-    	<p>${message}</p>
-    </div>
-</div>

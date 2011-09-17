@@ -1,0 +1,4 @@
+<div id="user-upload" class="userImage" data-quark-event="file-user.upload" >
+    <p><img src="/tmp/${tmpImg}"></p>
+    <input type="hidden" name="tmpImg" value="${tmpImg}" />
+</div>

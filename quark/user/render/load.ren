@@ -1,0 +1,16 @@
+<div id="user-load" class="ui-widget-content ui-corner-all" >
+	<div class="image" data-quark-event="click-user.updateOpen?id=${id}&name=${name}&img=${img}&info=${info}">
+        <p><img src="img/users/${img}" alt="User Image" class="userImage" /></p>
+        <p>${name}</p>
+    </div>
+	<div class="profile">
+        <p>${info}</p>
+    </div>
+    <div class="buttons">
+ <!--        <p><input type="button" value="$w{signin}" data-quark-event="click-auth.open" ></p>
+            <input type="button" value="$w{message.take}" data-quark-event="click-message.take" >   -->
+        <p>
+            <input type="button" value="$w{signout}" data-quark-event="click-auth.signout" >
+        </p>
+    </div>
+</div>

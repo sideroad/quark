@@ -1,0 +1,9 @@
+<div id="user-search" >
+	${users}.each(
+    <div data-quark-event="click-message.open?id=${id}&name=${name}&img=${img}" class="ui-widget-content useritem">
+        <p>
+            <img src="img/users/${img}" alt="User Image" class="userImage" /><span>${name}</span>
+        </p>
+	</div>
+    )
+</div>

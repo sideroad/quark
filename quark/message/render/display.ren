@@ -1,0 +1,12 @@
+<div id="message-display" data-quark-event="click-message.remove?mid=${mid}" >
+    <div >
+        <div class="user" >
+            <p><img src="img/users/${img}" alt="${name}" /></p>
+            <p>${name}</p>
+        </div>
+        <div class="message" >
+            <p>${message}</p>
+        </div>
+    </div>
+    <span class="mid${mid}"></span>
+</div>
