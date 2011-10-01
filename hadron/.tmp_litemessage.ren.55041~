@@ -1,0 +1,9 @@
+<div id="container" >
+    <div id="left">
+        <div id="user-load"></div>
+    </div>
+    <div id="right">
+        <div id="user-form"></div>
+        <div id="user-search"></div>
+    </div>
+</div>

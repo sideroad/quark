@@ -7,8 +7,9 @@
  *
  */
 (function( $, q ){
-    
-    qui = q.ui = {
+    var qui = {};
+	
+    q.ui = {
             list : [],
             
             // attach ui
@@ -59,6 +60,7 @@
             }
     };
     
+	qui = q.ui;
 
         
 })( jQuery, quark );

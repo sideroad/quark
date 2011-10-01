@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Quark test</title>
+
+
+    <link rel="stylesheet" type="text/css" href="css/qunit.css" />
+    
+    <script type="text/javascript" src="../../lib/jquery.min.js"></script>
+        <!-- quark libraries -->
+    <script type="text/javascript" src="../../lib/quark.test.all.js" ></script>
+    <script type="text/javascript" src="../../lib/quark.ui.all.js" ></script>
+    <script type="text/javascript" src="../../lib/quark.util.all.min.js" ></script>
+    <!-- /quark libraries -->
+    
+    <script type="text/javascript" src="../../hadron/litemessage.js" ></script>
+    <script type="text/javascript" src="../../lib/qunit.js" ></script>
+    
+</head>
+<body>
+
+<h1 id="qunit-header">Quark Test Suite</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">
+
+
+</div>
+</body>
+</html>

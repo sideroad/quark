@@ -18,7 +18,7 @@
     // future execute => fileupload => callback => rendered
     qut.list.push( "file" );
     qut.file = function( root ){
-            var part = that.particle,
+            var part = that.hadron,
                 selector = '[data-quark-event^="file"]',
                 target = root.find( selector ) || [];
             
@@ -31,10 +31,10 @@
                 var elem = $( this ),
                     data = elem.data( "quarkEvent" ).replace(/\s/, "").match( /^file-([^\.]+)\.([^\?]+)(\?.+|)$/ ),
                     name = data[ 1 ],
-                    action = data[ 2 ],
+                    method = data[ 2 ],
                     query = data[ 3 ],
-                    callName = name+"."+action,
-                    url = part.url.replace( "${quark}", name ).replace( "${action}", action );
+                    callName = name+"."+method,
+                    url = part.url.replace( "${quark}", name ).replace( "${method}", method );
                 
                 file = $('<input type="file" name="file" style="position:absolute;visibility:hidden;" >').change(function(){
                     $(this).upload( url + query, function(res) {

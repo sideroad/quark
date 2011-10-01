@@ -13,47 +13,63 @@
     // document.ready
     $(function(){
         
-        that.particle = $.extend(true, {
+        //:Test quark.test.init();
+        that.hadron = $.extend(true, {
                 path : {
-                    action : "quark/${quark}/${quark}.js",
-                    render : "quark/${quark}/render/${action}.ren",
+                    controller : "quark/c/${quark}.c.js",
+					model : "quark/m/${quark}.m.js",
+					view : "quark/v/${quark}.v.js",
+                    template : "quark/v/${quark}/${method}.ren",
                     lang : "lang/",
-                    mock : "quark/${quark}/${quark}.mock.js"
+                    mock : "quark/.mock/${quark}.mock.js",
+                    test : "quark/.test/${quark}.test.js"
                 },
                 lang : [],
                 quark : [ ],
                 init : function(){ 
                     true; 
-                }
-            }, that.particle );
+                },
+				mock : true
+            }, that.hadron );
         
-        var part = that.particle,
-            quarks = part.quark,
-            actionPath = part.path.action,
-            langPath = part.path.lang,
-            //:Debug mockPath = part.path.mock,
-            //:Test testPath = part.path.test,
-            quarksLength = quarks.length,
-            lang = part.lang,
+        var hadr = that.hadron,
+            controllers = hadr.controller,
+            models = hadr.model,
+            controllerPath = hadr.path.controller,
+            modelPath = hadr.path.model,
+            viewPath = hadr.path.view,
+            langPath = hadr.path.lang,
+            //:Debug mockPath = hadr.path.mock,
+            //:Test testPath = hadr.path.test,
+            controllersLength = controllers.length,
+            modelsLength = models.length,
+            lang = hadr.lang,
             i = 0,
+            cont = that.quark.controller,
             core = that.quark.core;
             
         // Load data from localStorage
         core.loadData();
 
         // load javascript files by headjs 
-        for( i=0; i<quarksLength; i++ ){
-                head.js( actionPath.replace( /\$\{quark\}/g, quarks[ i ]) );
-                //:Debug head.js( mockPath.replace( /\$\{quark\}/g, quarks[ i ] ) );
-                //:Test head.js( testPath.replace( /\$\{quark\}/g, quarks[ i ]) );
+        for( i = 0; i < controllersLength; i++ ){
+                head.js( controllerPath.replace( /\$\{quark\}/g, controllers[ i ]) );
+                head.js( viewPath.replace( /\$\{quark\}/g, controllers[ i ]) );
+                //:Test head.js( testPath.replace( /\$\{quark\}/g, controllers[ i ]) );
+        }
+        for( i = 0; i < modelsLength; i++ ){
+                head.js( modelPath.replace( /\$\{quark\}/g, models[ i ]) );
+                //:Debug head.js( mockPath.replace( /\$\{quark\}/g, models[ i ] ) );
         }
         
         // Load language setting
         core.loadLang( lang, langPath ,function(){
+			var body = $( document.body );
+			//:Test body = $( "#qunit-fixture" );
 
             // Load index
-            $(document.body).render({
-                url : "particle/${particle}/index.ren".replace( /\$\{particle\}/g, part.name),
+            body.render({
+                url : "hadron/${hadron}.ren".replace( /\$\{hadron\}/g, hadr.name),
                 dataType : "html",
                 success : function(){
 
@@ -62,26 +78,24 @@
                         var names = [ ],
                             i,
                             init = "",
-                            inits = part.init || [],
+                            inits = hadr.init || [],
                             initLength = inits.length;
                         
-                        // Mock attach for Debug
-                        //:Debug quark.mock.attach();
+                        //:Debug if( hadr.mock ) quark.mock.attach();
                         
                         // Make name list
-                        for( i=0; i<quarksLength; i++ ){
-                            names.push( quarks[i] );
+                        for( i=0; i < controllersLength; i++ ){
+                            names.push( controllers[i] );
                         }
                         core.attach( names );
 
                         for( i=0; i<initLength;i++ ){
                             init = inits[ i ];
                             //:Debug console.log( "[info] init : " +init );
-                            core.call( init );
+                            cont.call( init );
                         }
 						
-                        // Execute test
-                        //:Test quark.test.execute();
+                        ////:Test quark.test.execute();
 						
                         $(window).bind( "hashchange", function(){
                             var matches = location.hash.match( /^#([^\.]+\.[^\?]+)(\?|)(.*)$/ ) || [ ],
@@ -90,7 +104,7 @@
                             
                             if ( ! call ) return;
                             
-                            core.call( call, qc.deserialize( query ) );
+                            cont.call( call, core.deserialize( query ) );
                         }).trigger("hashchange");
                         
                     });

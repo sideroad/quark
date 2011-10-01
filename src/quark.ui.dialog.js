@@ -9,7 +9,8 @@
  *   jquery.ui.dialog.js
  */
 (function( $, q ){
-    var qc = q.core,
+    var core = q.core,
+	    qc = q.controller,
         qui = q.ui,
         isOpened = {};
     
@@ -43,7 +44,7 @@
             // Close intercepter
             close = setting.close;
             if( close ) {
-                qc.setIntercept( close, ( singleton ) ? function(){
+                core.setIntercept( close, ( singleton ) ? function(){
                     isIntercepted = true;
                     root.dialog( "close" ).remove();
                     isOpened[ id ] = false;

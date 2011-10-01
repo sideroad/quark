@@ -1,4 +1,4 @@
-/*!
+/**!
  * Quark Core v1.0.1
  * http://sideroad.secret.jp/quark/
  *
@@ -6,9 +6,8 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  *
  */
-var particle = { },
-    quark = { },
-    qc;
+var hadron = { },
+    quark = { };
 
 (function( $ ){
     var that = this,
@@ -17,168 +16,251 @@ var particle = { },
         langSetting = {},
         data = {},
         lsData = {},
-        quars = that.quark;
+		controllers = {},
+		views = {},
+        self = that.quark;
     
 
-    // Quark core
-    qc = quark.core = {
-            
-        /**
-         * Call quark process
-         * 
-         * @param {String} callName
-         *     quark name and action which separeted dot charactor.
-         * @param {Object} params
-         *     call arguments
-         * @param {jQueryElement} elem
-         * 
-         */
-        call : function( callName, params, target ){
-            if ( !callName ) return;
-            //:Debug console.log( "[info] call : "+callName, params, target );
-            if ( !params ) params = {};
-            
-            var part = that.particle,
-                name = callName.split(".")[0],
-                action = callName.split(".")[1],
-                quar = that.quark[name][action] || (function(){ throw new ReferenceError( callName + " is not defined." ); })(),
-                execute = quar.execute,
-                callback = quar.callback,
-                render = quar.render,
-                ajax = quar.ajax,
-                href = quar.href,
-                //:Test test = quar.test,
-                req = {},
-                chain = "",
-                core = that.quark.core,
-                intercept = core.intercept,
-                
-                /**
-                 * Render
-                 *   
-                 *   @param data : Object
-                 *                 Used for render data
-                 */
-                getTemplate = function( res, req, params, target ){
-                    if ( render ){
-                        $.ajax({
-                            url : part.path.render.replace(/\$\{quark\}/g, name).replace( /\$\{action\}/g, action ),
-                            dataType : "html",
-                            success : function(html){
-                                getTemplateSuccess( html, res, req, params, target );
-                            },
-                            error : function( e ){
-                                //:Debug console.log("[error] render : " + callName, e );
-                                throw new Error( e ) ;
-                            }
-                        });
-                    } else {
-                        getTemplateSuccess( "", res, req, params, target );
-                    }
-                },
-                ajaxSuccess = function( res ){
-                    //:Debug console.log( "[info] res : " + callName ,  res );
-                    getTemplate( callback( { res : res, req : req, data : params, target : target } ) || res, req, params, target );
-                },
-                getTemplateSuccess = function( html, res, req, params, target ){
-                    var id = callName.replace(".","-"),
-                        root = roots[ id ],
-                        tmpElem = $("<div></div>"),
-                        dialog = quar.dialog;
+	quark.controller = {
+		/**
+		 * 
+		 */
+		define : function define( name, methods ){
+			controllers[ name ] = methods;
+		},
+		
+		/**
+		 * Call controller process
+		 *
+		 * @param {String} callName
+		 *     quark name and method which separeted dot charactor.
+		 * @param {Object} data
+		 *     call arguments
+		 * @param {jQueryElement} target
+		 * @param {Function} next
+		 *
+		 */
+		call: function call(callName, data, target, next ){
+			if (!callName) return;
+			//:Debug console.log( "[info] call : "+callName, data, target );
+			if (!data) data = {};
+			
+			var hadr = that.hadron,
+			    name = callName.split(".")[0],
+				method = callName.split(".")[1], 
+				execute = controllers[name][method] || (function(){
+				   throw new ReferenceError(callName + " is not defined.");
+			    })(),
+				//:Test test = quar.test,
+				core = that.quark.core, 
+				intercept = core.intercept,  
+				/**
+				 * Render
+				 *
+				 *   @param {Object} data
+				 *                 Used for render data
+				 */
+				render = function render( data, callback ){
+                    if (!data) data = {};
 
-                    // Render 
-                    if ( render ) {
-
-                        // Render                                
-                        root = $( "#" + id );
-                        root = ( root.length ) ? root : $("<div></div>").appendTo( document.body );
-                        tmpElem.render( html, res );
-                        if( !root[0].id || !dialog || !dialog.singleton ){
-                            root.replaceWith( tmpElem[0].innerHTML );
-                        }
-                        roots [ id ] = root = $( "#" + id );
-                        
-                        // UI display control
-                        root.find( "[data-quark-ui]" ).each(function(){
-                            var elem = $( this ),
-                                ui = elem.data( "quarkUi" );
-                            
-                            ( params[ "ui-" + ui ] ) ? elem.css( { display : "block" } ) : elem.css( { display : "none" } );
-                            
-                        });
-                        
-                        // Util attach
-                        if( quark.util ){
-                            quark.util.attach( root, quar );
-                        }
-                        
-                        // UI attach
-                        if( quark.ui ){
-                            quark.ui.attach( root, quar );
-                        }
-                    }
-                    
-                    // Call render function
-                    if( render && $.isFunction( render ) ) {
-                        chain = render( { elem : root, res : res, req : req, data : params, target : target } ) || {};
-                        chain = ( typeof chain == "string" || chain instanceof String ) ? { call : chain } : chain;
-                    }
+                    // When omit a data					
+					if( $.isFunction( data ) && callback === undefined ){
+						callback = data;
+						data = {};
+					}
 					
-					//:Test if(test) test( { elem : root, res : res, req : req, data : params, target : target } );
-                    
-                    // Call chain function
-                    // useless current specification
-//                    if( chain.call ) {
-//                        core.call( chain.call, chain.data, chain.elem );
-//                    }
-                };
-        
-            // Intercepter
-            core.intercept( callName, params, target );
-                    
-            // Execute
-            if ( execute ) {
-                req = execute( { data : params, target : target } ) || $.extend( true, {}, params ) || {};
-            } else {
-                req = $.extend( true, {}, params ) || {};
+					$.ajax({
+						url: hadr.path.template.replace(/\$\{quark\}/g, name).replace(/\$\{method\}/g, method),
+						dataType: "html",
+						cache : true,
+						success: function(html){
+		                    var id = callName.replace(".", "-"), 
+		                        root = roots[id],
+		                        tmpElem = $("<div></div>"), 
+		                        config = views[name][method] || {},
+		                        dialog = config.dialog;
+		                    
+		                    
+		                    // Render                                
+		                    root = $("#" + id);
+		                    root = (root.length) ? root : $("<div></div>").appendTo(document.body);
+		                    tmpElem.render(html, data);
+		                    if (!root[0].id || !dialog || !dialog.singleton) {
+		                        root.replaceWith(tmpElem[0].innerHTML);
+		                    }
+		                    roots[id] = root = $("#" + id);
+		                    
+		                    // UI display control
+		                    root.find("[data-quark-ui]").each(function(){
+		                        var elem = $(this), 
+		                            ui = elem.data("quarkUi");
+		                        
+		                        (data["ui-" + ui]) ? elem.css({
+		                            display: "block"
+		                        }) : elem.css({
+		                            display: "none"
+		                        });
+		                        
+		                    });
+		                    
+		                    // Util attach
+		                    if (quark.util) {
+		                        quark.util.attach(root, config);
+		                    }
+		                    
+		                    // UI attach
+		                    if (quark.ui) {
+		                        quark.ui.attach(root, config);
+		                    }
+		                    
+		                    
+		                    // Call render function
+		                    if ( callback ) {
+		                        callback( root );
+		                    }
+		                    
+		                    if ( next ) {
+		                        next();
+		                    }
+		                    
+						},
+						error: function(e){
+							//:Debug console.log("[error] render : " + callName, e );
+							throw new Error(e);
+						}
+					});
+	
+				};
+			
+			// Intercepter
+			core.intercept(callName, data, target);
+			
+			// Execute
+			execute({
+				data: data,
+				target: target,
+				render : render
+			});
+			
+		}
+	};
+	
+	quark.model = {
+		/**
+		 * defaults
+		 * default model methods object
+		 * 
+		 */
+		defaults : {
+			/**
+			 * data
+			 * 
+			 * @param {String} key
+			 * @param {Object} val
+			 */
+            data :function data( key, val ){
+				var name = this.name;
+                if( !val ) return quark.core.data( name )[ key ];
+                quark.core.data( name )[ key ] = val;
             }
-            
-            // Href
-            if ( href ) {
-                req._ = new Date().getTime() + "_" + parseInt( Math.random() * 10000, 10 );
-                location.href = href.replace( "${quark}", name ).replace( "${action}", action ) + "?" + $.param( req ).replace( /\+/g, "%20" );
-                return;
-            }
-            
-            /**
-             * Call Ajax process when the callback exists  
-             *     Ajax process
-             * 
-             * Other
-             *     Normal process
-             */
-            callback ?
-                    // Ajax process
-    //                ajax ?
-    //                        ajax( { req : req, data : params, target : target }, ajaxSuccess ) : 
-                        $.ajax( {
-                            url : part.url.replace( "${quark}", name ).replace( "${action}", action ),
-                            data : req,
-                            dataType: part.dataType,
-                            success : ajaxSuccess
-                        } )
-                        
-                    // Normal process
-                    : ( function(){
-                        getTemplate( $.extend( true, {}, req ), req, params, target );
-                    } )();
-        
-        },
-        
+		},
+		/**
+		 * Define a model
+		 * 
+		 * @param {String} model name
+		 * @param {Object} methods
+		 */
+		define : function define( name, methods ){
+			var method = "",
+				m;
+			
+			function F(){}
+            F.prototype = this.defaults;
+			m = new F();
+			m.name = name;
+			quark.core.data( name, {} );
+			for( method in methods ){
+				m[ method ] = ( function( name, method, options ){
+					
+			        /**
+			         * Call model process
+			         *
+			         * @param {Object} data
+			         *     call arguments
+			         * @param {Function} next
+			         *
+			         */
+					return function( data, next ){
+			            var hadr = that.hadron,
+			                before = options.before,
+			                callback = options.callback, 
+			                href = options.href;
+			            
+						//No ajax process
+			            if( $.isFunction( options ) ){
+			                options.call( m, data );
+			                if( next ) next();
+			                return;
+			            }
+			            
+			            //URL override ( name, method )
+			            name = options.name || name;
+			            method = options.method || method;
+			            
+			            //Omittable data
+			            if( $.isFunction( data ) && next === undefined ){
+			                next = data;
+			                data = {};
+			            }
+			            
+			            if( before ) data = before.call( m, data ) || data;
+			
+			            // Href
+			            if ( href ) {
+			                data._ = new Date().getTime() + "_" + parseInt(Math.random() * 10000, 10);
+			                location.href = href.replace("${quark}", name).replace("${method}", method) + "?" + $.param( data ).replace(/\+/g, "%20");
+			                return;
+			            }
+			            
+			            /**
+			             * Call Ajax process
+			             *     Ajax process
+			             */
+			            $.ajax({
+			                url: hadr.url.replace("${quark}", name).replace("${method}", method),
+			                data: data,
+			                dataType: hadr.dataType,
+			                success: function success(res){
+			                    //:Debug console.log( "[info] res : " + name + "." + method ,  res );
+			                    if( callback )  res = callback.call( m, res ) || res;
+			                    if( next ) next( res );
+			                }
+			            });
+                    };
+					
+				})( name, method, methods[ method ] );
+			}
+			that[ name ] = m;
+		}
+	};
+	
+	// Quark view
+	quark.view = {
+		config : function( name, config ){
+            views[ name ] = config;
+		},
+		render : function( callName, data, html ){
+			
+		}
+	};
+	
+	
+    // Quark core
+    quark.core = {
         /**
          * Attach event
          */
-        attach : function( ){
+        attach : function attach( ){
             var types = [ "click", "change", "keydown" ],
                 length = types.length,
                 doc = $( document.body ),
@@ -195,7 +277,8 @@ var particle = { },
                             length = events.length,
                             reg = /^([^-]+)-([^\.]+\.[^\:\?]+)(\:|\?|)(.*)/,
                             type = e.type,
-                            core = quars.core,
+                            core = self.core,
+							call = self.controller.call,
                             i, matches, event, data,context, callName,isValid,
                             form;
     
@@ -228,7 +311,7 @@ var particle = { },
                                     }
                                     data = core.deserialize( context ) || {};
                                 }
-                                core.call( callName, data, elem);
+                                call( callName, data, elem);
                             }
                         }
                     });
@@ -242,7 +325,7 @@ var particle = { },
          * 
          * @param {String} query
          */
-        deserialize : function( query ){
+        deserialize : function deserialize( query ){
             if( !query ) return {};
             var set = query.replace( /\+/g, "%20" ).split( "&" ) || [],
                 length = set.length,
@@ -270,7 +353,7 @@ var particle = { },
          * Intercepter function
          * 
          */
-        setIntercept : function( callName, func ){
+        setIntercept : function setIntercept( callName, func ){
             
             if( !intercepter[callName] ) {
                 intercepter[ callName ] = [];
@@ -282,7 +365,7 @@ var particle = { },
          * Intercepter function
          * 
          */
-        intercept : function( callName, data, elem ){
+        intercept : function intercept( callName, data, elem ){
             var funcs = [],
                 once = [],
                 i,
@@ -306,7 +389,7 @@ var particle = { },
          * @param {Any} val
          * @param {Boolean} store to local storage
          */
-        data : function( key, val, store ){
+        data : function data( key, val, store ){
             if( val === undefined ){
                 //:Debug console.log( "[info] get data : ", key, data[ key ] );
                 return data[ key ];
@@ -324,7 +407,7 @@ var particle = { },
         /**
          * Load data from localStorage
          */
-        loadData : function(){
+        loadData : function loadData(){
             var quarkData = $.extend( true, {}, 
                     this.deserialize( $.Storage.get( "quark-data" ) )
             );
@@ -335,7 +418,7 @@ var particle = { },
         /**
          * Set language
          */
-        lang : function( lang, def, callback ){
+        lang : function lang( lang, def, callback ){
             $.word( langSetting, def, lang, callback );
         },
         
@@ -343,7 +426,7 @@ var particle = { },
          * Load language setting
          * 
          */
-        loadLang : function( lang, path, callback ){
+        loadLang : function loadLang( lang, path, callback ){
             var length = lang.length,
                 setting = {},
                 core = that.quark.core,

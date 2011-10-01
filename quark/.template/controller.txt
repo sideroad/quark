@@ -1,0 +1,6 @@
+    __method__ : function( arg ){
+            qm.call( "__quark__.__method__", arg.data, function( res ){
+                arg.render( res );
+            } );
+        }
+    }

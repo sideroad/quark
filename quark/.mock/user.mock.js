@@ -1,5 +1,15 @@
 quark.mock.user = {
-    search : function( setting ){
+    load : function( req ){
+        var res =  { 
+                status: "success",
+                id : "test",
+                name : "TestMan",
+                img : "0.png",
+                info : "Im test-man!\ntest! test! test!"
+            };
+        return res;    
+    },
+    find : function( req ){
         var users = [
                 "Vice President",
                 "George Washington",
@@ -22,18 +32,23 @@ quark.mock.user = {
              ],
              length = users.length,
              i,
-             name = setting.data.userSearch.toLowerCase(),
-             matches = [];
+             name = req.name.toLowerCase(),
+             matches = [],
+             res;
         
         for( i = 0; i < length; i++ ){
             if(users[i].toLowerCase().match( name )){
-                matches.push( {name : users[i], img:"0", id:users[i].toLowerCase().replace(/\s/g,"")} );
+                matches.push( {name : users[i], img:"0.png", id:users[i].toLowerCase().replace(/\s/g,"")} );
             }
         }
         
-        this.responseText = {
+        res = {
             status : "success",
             users : matches
         };
+        return res;
+    },
+    upload : function( req ){
+        return {};
     }
 };

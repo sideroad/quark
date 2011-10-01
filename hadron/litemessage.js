@@ -1,18 +1,24 @@
-var particle = {
+var hadron = {
         
     name : "litemessage",    
         
     // url
-    url : "http://litemessage.herokuapp.com/${quark}.${action}.json",
+    url : "http://litemessage.herokuapp.com/${quark}.${method}.json",
     
     dataType: "json",
         
-    // quark list    
-    quark : [
+    // controllers    
+    controller : [
         "auth",
         "user",
         "message"
     ],
+	
+	model : [
+	    "auth",
+		"user",
+		"message"
+	],
     
     lang : [
         "en",
@@ -21,7 +27,10 @@ var particle = {
     
     init : [
         "auth.confirm"
-    ]
+    ],
+	
+	mock : false
+	
 };
 
 

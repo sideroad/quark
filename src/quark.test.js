@@ -1,45 +1,38 @@
-var qt = quark.test = {
+quark.test = {
+	
+	init : function(){
+		
+		$(document.body).html(
+		    '<h1 id="qunit-header">Quark Test Suite</h1>' +
+            '<h2 id="qunit-banner"></h2>' +
+            '<div id="qunit-testrunner-toolbar"></div>' +
+            '<h2 id="qunit-userAgent"></h2>' +
+            '<ol id="qunit-tests"></ol>' + 
+            '<div id="qunit-fixture">'
+		);
+		
+		$(document.head).append('<link rel="stylesheet" type="text/css" href="css/qunit.css" />');
+		
+	},
 	
 	execute : function(){
 		var qt = quark.test,
-                quark = {},
+                t = {},
                 name = "",
-                action = "";
+                method = "";
             
             for ( name in qt ) {
 				if( name == "execute" || name == "test" ) continue;
-                quark = qt[ name ];
+                t = qt[ name ];
 				
                 module( name );
-                for ( action in quark ) {
+                for ( method in quark ) {
                     (function( test ){
-                        asyncTest( name + "." + action, test );
-                    })( quark[ action ] );
+                        asyncTest( name + "." + method, test );
+                    })( t[ method ] );
                 }
             }
 		    
-	},
+	}
 	
-    test : function( arg ){
-        var callName = arg.call,
-		    name = callName.split(".")[0],
-			action = callName.split(".")[1],
-            data = arg.data,
-            response = arg.response,
-			target = arg.target,
-            test = arg.test;
-        
-        $.mockjax({
-            url : particle.url.replace( /\$\{quark\}/g, name ).replace( /\$\{action\}/g, action ),
-            response : function( setting ){
-				this.responseText = response( { req : setting.data } );
-			}
-        });
-		
-		quark[name][action].test = function( arg ){
-			test( arg );
-		};
-		quark.core.call( callName, data, target );
-		
-    }
 };

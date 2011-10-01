@@ -1,0 +1,8 @@
+    __method__ : {
+        before: function( data ){
+            return data;
+        },
+        callback : function( res ){
+            return res;
+        }
+    }

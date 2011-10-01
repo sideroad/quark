@@ -7,8 +7,9 @@
  *
  */
 (function( $, q ){
-    
-    qut = q.util = {
+    var qut = {};
+	
+    q.util = {
         
         list: [],
             
@@ -27,7 +28,7 @@
             }
         }
     };
-    
-
+	
+	qut = q.util;
         
 })( jQuery, quark );

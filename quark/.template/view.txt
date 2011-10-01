@@ -1,10 +1,4 @@
-    __action__ : {
-        execute: function( arg ){
-        },
-        callback : function( arg ){
-        },
-        render : function( arg ){
-        }
+    __method__ : {
 //        /*UI*/
 //        button : true,
 //        dialog : {
