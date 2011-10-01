@@ -5,28 +5,28 @@ Quark is a MVC framework for rich JavaScript web application.
 The framework is stood on the many amazing libraries.
 Quark Core
 ---------
-*head.js
-*jQuery
-*jQueryStorage
-*jQueryRender
+* head.js
+* jQuery
+* jQueryStorage
+* jQueryRender
 
 Quark UI
 --------
-*jQueryUI
-*jQueryFloatingMessage
+* jQueryUI
+* jQueryFloatingMessage
 
 Quark Util
 ----------
-*jQueryUpload
-*jQuerySimpleValidate
+* jQueryUpload
+* jQuerySimpleValidate
 
 Quark Debug
 -----------
-*jQueryMockjax
+* jQueryMockjax
 
 Quark Test
 ----------
-*Qunit
+* Qunit
 
 Structure
 =========
@@ -35,12 +35,12 @@ Hadron
 ------
 Hadron is composed by several quarks.
 Define the configure for the page.
-*hadron/${application_name}.js
-*hadron/${application_name}.ren
+* hadron/${application_name}.js
+* hadron/${application_name}.ren
 
 Controller
 ----------
-*quark/c/${quark_name}.c.js
+* quark/c/${quark_name}.c.js
 Controllers are the glue between models and views. ( just like a gluon )
 
     //quark/c/user.c.js
@@ -61,7 +61,7 @@ Controllers are the glue between models and views. ( just like a gluon )
 
 Model
 -------
-*quark/m/${quark_name}.m.js
+* quark/m/${quark_name}.m.js
 Model don't know any controllers and views.
 
     //quark/m/user.m.js
@@ -89,7 +89,7 @@ View
 ----
 View don't have any logic
 You can set a configure.
-*quark/v/${quark_name}.v.js
+* quark/v/${quark_name}.v.js
 
     //quark/v/user.v.js
     quark.view.config( "user", {
@@ -106,7 +106,7 @@ You can set a configure.
         }
     } );
     
-*quark/v/${quark_name}/${method_name}.ren
+* quark/v/${quark_name}/${method_name}.ren
 
     <!-- quark/v/user/dialog.ren -->
     <div id="user-dialog">
