@@ -35,13 +35,15 @@ Hadron
 ------
 Hadron is composed by several quarks.
 Define the configure for the page.
+
 * hadron/${application_name}.js
 * hadron/${application_name}.ren
 
 Controller
 ----------
-* quark/c/${quark_name}.c.js
 Controllers are the glue between models and views. ( just like a gluon )
+
+* quark/c/${quark_name}.c.js
 
     //quark/c/user.c.js
     quark.controller.define( "user", {
@@ -61,8 +63,9 @@ Controllers are the glue between models and views. ( just like a gluon )
 
 Model
 -------
-* quark/m/${quark_name}.m.js
 Model don't know any controllers and views.
+
+* quark/m/${quark_name}.m.js
 
     //quark/m/user.m.js
     quark.model.define( "User", {
@@ -89,6 +92,7 @@ View
 ----
 View don't have any logic
 You can set a configure.
+
 * quark/v/${quark_name}.v.js
 
     //quark/v/user.v.js
