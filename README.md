@@ -81,9 +81,9 @@ Model don't know any controllers and views.
                 return res;
             }
         },
-        
-        remove : {}, /* You can omit a any configure when you don't need to set configure especially */
-     
+    
+        remove : {} /* You can omit a any configure when you don't need to set configure especially */
+    
     } );
 
     User.find({ id : "foo" });  /* server request with parameter. "id=foo" */
@@ -109,7 +109,7 @@ You can set a configure.
             } 
         }
     } );
-    
+
 * quark/v/${quark_name}/${method_name}.ren
 
     <!-- quark/v/user/dialog.ren -->
@@ -119,6 +119,6 @@ You can set a configure.
             <input type="button" data-quark-event="click-user.seek:form" >
         </form>
     </div>
-    
+
 
 
