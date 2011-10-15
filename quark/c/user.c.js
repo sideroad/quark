@@ -28,6 +28,7 @@
 	    },
 	    
 	    updateOpen : function( arg ){
+			if( arg.data.id == "guest" ) return;
 			arg.render( arg.data );
 	    },
 	    
@@ -36,9 +37,7 @@
 	    },
 	    
 	    upload : function( arg ){
-			user.upload( arg.data, function( res ){
-				arg.render( res );
-			});
+			arg.render( arg.data );
 	    },
 	    
 	    updateClose : function(){}
