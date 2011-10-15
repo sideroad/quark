@@ -1,5 +1,7 @@
 var hadron = {
-        
+    
+	body : $(document.body) ,   
+	
     name : "litemessage",    
         
     // url

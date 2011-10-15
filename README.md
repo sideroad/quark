@@ -82,7 +82,7 @@ Model don't know any controllers and views.
             }
         },
     
-        remove : {} /* You can omit a any configure when you don't need to set configure especially */
+        remove : {} /* Omit a any configure which don't need to set configure especially */
     
     } );
 
@@ -95,7 +95,7 @@ You can set a configure.
 
 * quark/v/${quark_name}.v.js
 
-    //quark/v/user.v.js
+    /* quark/v/user.v.js */
     quark.view.config( "user", {
         dialog : {
             button : true,

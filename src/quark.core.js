@@ -77,7 +77,7 @@ var hadron = { },
 		                    var id = callName.replace(".", "-"), 
 		                        root = roots[id],
 		                        tmpElem = $("<div></div>"), 
-		                        config = views[name][method] || {},
+		                        config = (views[name]? views[name][method] : {}) || {},
 		                        dialog = config.dialog;
 		                    
 		                    

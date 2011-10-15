@@ -16,6 +16,7 @@
         //:Test quark.test.init();
         that.hadron = $.extend(true, {
                 path : {
+					hadron : "hadron/${hadron}.ren",
                     controller : "quark/c/${quark}.c.js",
 					model : "quark/m/${quark}.m.js",
 					view : "quark/v/${quark}.v.js",
@@ -24,12 +25,15 @@
                     mock : "quark/.mock/${quark}.mock.js",
                     test : "quark/.test/${quark}.test.js"
                 },
+                controller : [],
+                model : [],
                 lang : [],
                 quark : [ ],
                 init : function(){ 
                     true; 
                 },
-				mock : true
+				mock : true,
+				body : false
             }, that.hadron );
         
         var hadr = that.hadron,
@@ -62,17 +66,12 @@
                 //:Debug head.js( mockPath.replace( /\$\{quark\}/g, models[ i ] ) );
         }
         
-        // Load language setting
-        core.loadLang( lang, langPath ,function(){
-			var body = $( document.body );
-			//:Test body = $( "#qunit-fixture" );
-
-            // Load index
-            body.render({
-                url : "hadron/${hadron}.ren".replace( /\$\{hadron\}/g, hadr.name),
-                dataType : "html",
-                success : function(){
-
+		function bodyRender(){
+            var body = hadr.body;
+            //:Test body = $( "#qunit-fixture" );
+			
+			function rendered(){
+				
                     // all javascript loaded
                     head.ready( function( ){
                         var names = [ ],
@@ -94,9 +93,9 @@
                             //:Debug console.log( "[info] init : " +init );
                             cont.call( init );
                         }
-						
+                        
                         ////:Test quark.test.execute();
-						
+                        
                         $(window).bind( "hashchange", function(){
                             var matches = location.hash.match( /^#([^\.]+\.[^\?]+)(\?|)(.*)$/ ) || [ ],
                                 call = matches[ 1 ],
@@ -108,9 +107,27 @@
                         }).trigger("hashchange");
                         
                     });
-                }
-            });
-        });
+			}
+
+            if( body && body.length ){
+	            // Load index
+	            body.render({
+	                url : hadr.path.hadron.replace( /\$\{hadron\}/g, hadr.name),
+	                dataType : "html",
+	                success : rendered
+	            });
+			} else {
+				rendered();
+			}
+			
+		}
+        
+        if (lang.length) {
+        // Load language setting
+            core.loadLang(lang, langPath, bodyRender);
+        } else {
+            bodyRender();
+        }
         
         
 
