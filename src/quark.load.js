@@ -33,7 +33,7 @@
                     true; 
                 },
 				mock : true,
-				body : false
+				body : document.body
             }, that.hadron );
         
         var hadr = that.hadron,
@@ -109,9 +109,9 @@
                     });
 			}
 
-            if( body && body.length ){
+            if( body ){
 	            // Load index
-	            body.render({
+	            $( body ).render({
 	                url : hadr.path.hadron.replace( /\$\{hadron\}/g, hadr.name),
 	                dataType : "html",
 	                success : rendered

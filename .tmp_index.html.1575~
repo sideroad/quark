@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Lite message</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.15/themes/ui-darkness/jquery-ui.css" />
+    <link rel="stylesheet" href="css/quark.css" />
+    <link rel="stylesheet" href="css/litemessage.css" />
+    
+    <!-- quark libraries -->
+    <script type="text/javascript" src="lib/quark.debug.all.js" ></script>
+    <script type="text/javascript" src="lib/quark.ui.all.js" ></script>
+    <script type="text/javascript" src="lib/quark.util.all.min.js" ></script>
+    <!-- /quark libraries -->
+    
+    <script type="text/javascript" src="hadron/litemessage.js" ></script>
+    
+    <!-- debug -->
+    <!--
+    <script type="text/javascript" src="lib/jquery.mockjax.js" ></script>
+    <script type="text/javascript" src="lib/quark.debug.js" ></script> 
+    -->
+    <!-- /debug -->
+	
+    <!-- other libraries -->
+    <script type="text/javascript" src="lib/jquery.cookie.js" ></script>
+    <!-- /other libraries -->
+    
+</head>
+<body>
+</body>
+</html>
