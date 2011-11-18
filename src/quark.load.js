@@ -63,7 +63,7 @@
         }
         for( i = 0; i < modelsLength; i++ ){
                 head.js( modelPath.replace( /\$\{quark\}/g, models[ i ]) );
-                //:Debug head.js( mockPath.replace( /\$\{quark\}/g, models[ i ] ) );
+                //:Debug if( hadr.mock ) head.js( mockPath.replace( /\$\{quark\}/g, models[ i ] ) );
         }
         
 		function bodyRender(){

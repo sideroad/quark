@@ -45,92 +45,14 @@ var hadron = { },
 			//:Debug console.log( "[info] call : "+callName, data, target );
 			if (!data) data = {};
 			
-			var hadr = that.hadron,
-			    name = callName.split(".")[0],
-				method = callName.split(".")[1], 
+			var name = callName.split(".")[0],
+                method = callName.split(".")[1],
 				execute = controllers[name][method] || (function(){
 				   throw new ReferenceError(callName + " is not defined.");
 			    })(),
 				//:Test test = quar.test,
 				core = that.quark.core, 
-				intercept = core.intercept,  
-				/**
-				 * Render
-				 *
-				 *   @param {Object} data
-				 *                 Used for render data
-				 */
-				render = function render( data, callback ){
-                    if (!data) data = {};
-
-                    // When omit a data					
-					if( $.isFunction( data ) && callback === undefined ){
-						callback = data;
-						data = {};
-					}
-					
-					$.ajax({
-						url: hadr.path.template.replace(/\$\{quark\}/g, name).replace(/\$\{method\}/g, method),
-						dataType: "html",
-						cache : true,
-						success: function(html){
-		                    var id = callName.replace(".", "-"), 
-		                        root = roots[id],
-		                        tmpElem = $("<div></div>"), 
-		                        config = (views[name]? views[name][method] : {}) || {},
-		                        dialog = config.dialog;
-		                    
-		                    
-		                    // Render                                
-		                    root = $("#" + id);
-		                    root = (root.length) ? root : $("<div></div>").appendTo(document.body);
-		                    tmpElem.render(html, data);
-		                    if (!root[0].id || !dialog || !dialog.singleton) {
-		                        root.replaceWith(tmpElem[0].innerHTML);
-		                    }
-		                    roots[id] = root = $("#" + id);
-		                    
-		                    // UI display control
-		                    root.find("[data-quark-ui]").each(function(){
-		                        var elem = $(this), 
-		                            ui = elem.data("quarkUi");
-		                        
-		                        (data["ui-" + ui]) ? elem.css({
-		                            display: "block"
-		                        }) : elem.css({
-		                            display: "none"
-		                        });
-		                        
-		                    });
-		                    
-		                    // Util attach
-		                    if (quark.util) {
-		                        quark.util.attach(root, config);
-		                    }
-		                    
-		                    // UI attach
-		                    if (quark.ui) {
-		                        quark.ui.attach(root, config);
-		                    }
-		                    
-		                    
-		                    // Call render function
-		                    if ( callback ) {
-		                        callback( root );
-		                    }
-		                    
-		                    if ( next ) {
-		                        next();
-		                    }
-		                    
-						},
-						error: function(e){
-							//:Debug console.log("[error] render : " + callName, e );
-							throw new Error(e);
-						}
-					});
-	
-				};
+				intercept = core.intercept;
 			
 			// Intercepter
 			core.intercept(callName, data, target);
@@ -139,13 +61,23 @@ var hadron = { },
 			execute({
 				data: data,
 				target: target,
-				render : render
+				render: function( data, callback ){
+					that.quark.view.render( callName, data, callback, next );
+				}
 			});
 			
 		}
 	};
 	
 	quark.model = {
+		/**
+		 * interceptBefore
+		 * interceptor before function
+		 * 
+		 * call before method, if you defined this method
+		 * 
+		 */
+		interceptBefore : undefined,
 		/**
 		 * defaults
 		 * default model methods object
@@ -172,7 +104,8 @@ var hadron = { },
 		 */
 		define : function define( name, methods ){
 			var method = "",
-				m;
+				m,
+				interceptBefore = this.interceptBefore;
 			
 			function F(){}
             F.prototype = this.defaults;
@@ -213,6 +146,7 @@ var hadron = { },
 			                data = {};
 			            }
 			            
+						if ( interceptBefore ) interceptBefore( data );
 			            if( before ) data = before.call( m, data ) || data;
 			
 			            // Href
@@ -227,7 +161,7 @@ var hadron = { },
 			             *     Ajax process
 			             */
 			            $.ajax({
-			                url: hadr.url.replace("${quark}", name).replace("${method}", method),
+			                url: hadr.url.replace( /\$\{quark\}/g, name).replace( /\$\{method\}/g, method),
 			                data: data,
 			                dataType: hadr.dataType,
 			                success: function success(res){
@@ -249,7 +183,85 @@ var hadron = { },
 		config : function( name, config ){
             views[ name ] = config;
 		},
-		render : function( callName, data, html ){
+		
+        /**
+         * Render
+         *
+         *   @param {Object} data
+         *                 Used for render data
+         */
+        render: function render( callName, data, callback, next ){
+			var hadr = that.hadron,
+			    name = callName.split(".")[0],
+                method = callName.split(".")[1];
+                
+			if (!data) data = {};
+			
+			// When omit a data                 
+			if ($.isFunction(data) && callback === undefined) {
+				callback = data;
+				data = {};
+			}
+			
+			$.ajax({
+				url: hadr.path.template.replace(/\$\{quark\}/g, name).replace(/\$\{method\}/g, method),
+				dataType: "html",
+				cache: true,
+				success: function(html){
+					var id = callName.replace(".", "-"), 
+					    root = roots[id], 
+						tmpElem = $("<div></div>"), 
+						config = (views[name] ? views[name][method] : {}) || {}, 
+						dialog = config.dialog;
+					
+					
+					// Render                                
+					root = $("#" + id);
+					root = (root.length) ? root : $("<div></div>").appendTo(document.body);
+					tmpElem.render(html, data);
+					if (!root[0].id || !dialog || !dialog.singleton) {
+						root.replaceWith(tmpElem[0].innerHTML);
+					}
+					roots[id] = root = $("#" + id);
+					
+					// UI display control
+					root.find("[data-quark-ui]").each(function(){
+						var elem = $(this), ui = elem.data("quarkUi");
+						
+						(data["ui-" + ui]) ? elem.css({
+							display: "block"
+						}) : elem.css({
+							display: "none"
+						});
+						
+					});
+					
+					// Util attach
+					if (quark.util) {
+						quark.util.attach(root, config);
+					}
+					
+					// UI attach
+					if (quark.ui) {
+						quark.ui.attach(root, config);
+					}
+					
+					
+					// Call render function
+					if (callback) {
+						callback(root);
+					}
+					
+					if (next) {
+						next();
+					}
+					
+				},
+				error: function(e){
+					//:Debug console.log("[error] render : " + callName, e );
+					throw new Error(e);
+				}
+			});
 			
 		}
 	};

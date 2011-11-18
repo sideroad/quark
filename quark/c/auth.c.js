@@ -25,7 +25,10 @@
 		},
 		
 		close: function(){
-            c.call( "auth.open" );
+			if (!$.cookie("token")) {
+				$.cookie("token", "guest:cd0c4b3ff5ad386da76d6d0b8e4a1d60ef8c6e00");
+				location.reload();
+			}
 
 		},
 		

@@ -3,7 +3,7 @@
         
 	c.define( "user", {
 	    load : function( arg ){
-			user.load( function( res ){				
+			user.load( function( res ){	
 	            res.info = res.info.replace(/\n/g,"<br/>");
 				arg.render( res, function( elem ){
 		            c.call( "user.form" );
